@@ -19,3 +19,7 @@ setStep(step+1) ===> setStep((s)=>s+1)
 
 ---We view UI as a reflection of data changing over time---
 for data that should not trigger component re-renders, DO NOT USE state. use a regular variable instead.
+
+---State vs. Props---
+State: internal data; owned by component.,make components interactive
+Props:External data; owned by parent component;used by parent to configure child component
