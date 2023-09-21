@@ -23,3 +23,19 @@ for data that should not trigger component re-renders, DO NOT USE state. use a r
 ---State vs. Props---
 State: internal data; owned by component.,make components interactive
 Props:External data; owned by parent component;used by parent to configure child component
+
+---Thinking In React---
+Break the UI into components and establish the component tree
+Build a static version in React(without state)
+Think about State:when to use| local vs. global|Where to place each piece of state
+Establish data flow: One-way|Child-to-parent communication|Accessing global state
+
+---Fundamentals of State management---
+Local State:
+used only by one or few components
+Global State:
+many components might need
+
+---share state with simbling component---
+need to lift state up to parent component.
+use setMethod in child component to update state in parent component.
