@@ -39,3 +39,6 @@ many components might need
 ---share state with simbling component---
 need to lift state up to parent component.
 use setMethod in child component to update state in parent component.
+
+---Derived state---
+state that is computed from an existing piece of state or from props
