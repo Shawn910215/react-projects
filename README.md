@@ -42,3 +42,5 @@ use setMethod in child component to update state in parent component.
 
 ---Derived state---
 state that is computed from an existing piece of state or from props
+
+P80
