@@ -68,3 +68,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+###P87 Children Prop
+the children prop is a prop that each React component automatically reveives and the value of the
+children prop is exactly what is between the opening and the closing tag of the component
+Use children default prop to pass to the components.
+The JSX that pass to the Component.
