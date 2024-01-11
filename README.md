@@ -95,3 +95,7 @@ P7: Componnent Composition
 \* if we nest a child component into a parent component directly, we cannot❌ reuse the parent again. but if we pass it as children components between open and close tag, we can✅ still reuse the parent component.
 
 \* we can use this to fix prop drilling problems
+
+P11: Use explicit prop as alternative
+-just use an customised name like {element} instead of {children}. then in the parent component, pass the prop explicitly, example:
+<Box element={<MovieList movies={movies}>}/>
