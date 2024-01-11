@@ -43,4 +43,55 @@ use setMethod in child component to update state in parent component.
 ---Derived state---
 state that is computed from an existing piece of state or from props
 
-P80
+Part2
+p4:---Component Size Matters---
+\*if the size of a component is huge
+-Too many responsibilities
+-Might need too many props
+-Hard to reuse
+-Complex code, hard to understand
+
+\*if the size is too small
+-end up with 100s of mini-components
+-Confusing codebase
+-Too abstracted(Creating something new to hide the implementation details of that thing)
+
+\* Generally, we need to find the right balance between too specific and too broad.
+
+\* How to splict a UI into Components?
+-Logical separation of content/layout
+-Some are reusable
+-Low complexity
+-Personal coding style
+
+-Whne in doubt, start with a relatively big component, then split it into smaller components as it becomes necessary(unless you're sure you need to reuse).
+
+-creating a new component means creating a new abstraction, try not to create new compnents too early.
+-Name a component accoring to what it does or what it displays. do not afraid of using long component names.
+-Co-locate related components inside the same file. Do not separate components into different files too early
+
+P6: Component categories
+
+\*Stateless/presentational components
+-No State
+-can receive props and simply present received data or other content
+-Usually small and reusable
+
+\*Stateful components
+-Have State
+-Can still be reusable
+
+\*structural components
+-Pages,layouts,or screens of the app
+-result of composition
+-can be huge and non-reusable(but don't have to)
+
+P6: Prop Drilling
+
+\* need to pass some props through several nested child components in order to get that data to deeply nested components.
+
+P7: Componnent Composition
+
+\* if we nest a child component into a parent component directly, we cannot❌ reuse the parent again. but if we pass it as children components between open and close tag, we can✅ still reuse the parent component.
+
+\* we can use this to fix prop drilling problems
