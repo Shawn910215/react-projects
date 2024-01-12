@@ -99,3 +99,20 @@ P7: Componnent Composition
 P11: Use explicit prop as alternative
 -just use an customised name like {element} instead of {children}. then in the parent component, pass the prop explicitly, example:
 <Box element={<MovieList movies={movies}>}/>
+
+P16: PropTypes
+it can be used to limit the type that pass to the component. but not used nowadays:
+Example:
+StarRating.propTyoes={
+maxRating:PropTypes.number,
+color:PropTypes.string
+}
+
+P28:
+**Key Prop**
+❗️always use key.
+especially when rendering lists of components or elements.
+key allows the react to tell the difference between component instant.
+for example, if we add a new component in <ul>, the original children components will not be modified in DOM.
+
+P31: Rules for render logic pure components
