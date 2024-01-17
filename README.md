@@ -116,3 +116,76 @@ key allows the react to tell the difference between component instant.
 for example, if we add a new component in <ul>, the original children components will not be modified in DOM.
 
 P31: Rules for render logic pure components
+😂side effect: interaction with the outside world/ modification of any data outside the function scope.
+
+🎇side effects are not bad! A program can only be useful if it has some interaction with the ourside world.
+
+😁pure function:
+1.Does not change any variables outside its scope;
+2.Given the same input, a pure function always returns the same output;
+
+Render Logic requires components be pure;
+
+P32: State Update Batching
+just one render and commit per event handler. even update multiple states.
+
+P33: If we want to update the value of state based on the previous value, always use 🔥🔥callback function, For example:
+setLikes((likes)=>likes +1);
+
+P35 framework vs. Library
+Framework --- ALl-in-one-kit
+-Angular(include everything)
+
+Libarary --- Separate ingredients
+-React ("View" libarary) can use external 3rd-party libraries to build a complete application
+-so need to research, download, learn and stay up-to-date with multiple external libraries.
+![screen shot of Library Ecosystem](image.png)
+
+Frameworks built on Top of react:
+Next.js | Remix | Gatsby
+🎇They are Full-stack frameworks
+
+P36
+1️⃣A component is like a blueprint, when use a component, React creates a component instance.
+2️⃣ Each time a component instance is rendered and re-rendered, the function is called again, only the initial app render and state updates can cause a render, which happens for the entire application, not just one single component.
+3️⃣ When a component instance gets re-rendered, all its children will get re-rendered as well.
+4️⃣ Diffing is how React decides which DOM elements need to be added or modified. position in the element tree matters.
+5️⃣Always add key props.
+6️⃣Never declare a new component inside another component!
+7️⃣compoent is not allowed to produce any side effects....
+
+Part II Section 3
+
+P38 Component(instance) LIFECYCLE🛟
+🐣Mount/Initial Render
+🐓Re-Render(When State| Props| Parent re-renders| Context Changes)
+💀Unmount(component instance is destroyed and removed)
+
+P39
+shows a problem that when the Movies state was changed, the component will be re-renderd. if it was re-rendered, the fetch method will fire out request to the API, it is a infinite loop.
+
+export default function APP(){
+const[movies,setMovies]=useState([]);
+fetch('API').then((res)=>res.json()).then((data)=>setMovies(data.search))
+}
+
+P40 Use useEffect to the Rescue
+
+import useEffect from 'react';
+useEffect(function(){
+fetch('API').then((res)=>res.json()).then((data)=>setMovies(data.search))
+},[]);
+
+P41 use Effect to keep a component synchronized with external system( for example:API data )
+
+P45 What is the useEffect Dependency array?
+🔥Every state variable and Prop used inside the effect MUST be included in the dependency array.
+🔥useEffect is a SYNCHRONIZATION mechanism. Whenever a dependency changes, it will execute the effect again. and component is re-rendered, so Effects and component lifecycle are deeply connected.
+🔥if it has no props in the second postion, useEffect will run every time when any states or props are modified.
+🔥if it has a empty array [] as props. it will only run at the initial mount.
+
+P57. Hooks rely on call orders. so hoops can only called on top level⬆️, not in conditional, loop, nested component.
+
+P59 More details of useState:
+the initial value we pass to the useState only matters at initial render.🎬
+For example, we can use a callback function to return the data we stored in localStorage in useState(callback), it will only be rendered at the initail render.
