@@ -30,13 +30,15 @@ export default function App() {
   }
   useEffect(
     function () {
+      const controller = new AbortController();
+
       async function fetchMovies() {
         try {
           setIsLoading(true);
           //every time run the effect, set error to empty
           setError("");
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&s=${query}`
+            `http://www.omdbapi.com/?apikey=${key}&s=${query},{signal:controller.signal}`
           );
           //throw an error to handle failing to fetch data, for example disconnected problem.
           if (!res.ok)
@@ -62,6 +64,11 @@ export default function App() {
       }
 
       fetchMovies();
+
+      //clean up function to clean up Data Fetching.each time new re-render, this function will abort the current fetch request.
+      return function () {
+        controller.abort();
+      };
     },
     [query]
   );
@@ -255,12 +262,13 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     function () {
       async function getMovieDetails() {
         setIsLoading(true);
+
         const res = await fetch(
           `http://www.omdbapi.com/?apikey=${key}&i=${selectedId}`
         );
         const data = await res.json();
         setMovie(data);
-        // console.log(data);
+
         setIsLoading(false);
       }
       getMovieDetails();
@@ -272,6 +280,11 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     function () {
       if (!title) return;
       document.title = `Movie | ${title}`;
+
+      //clean up function,it will be triggered when click back(the moviedetail will be unmounted.)
+      return function () {
+        document.title = "usePopcorn";
+      };
     },
     [title]
   );
