@@ -189,3 +189,9 @@ P57. Hooks rely on call orders. so hoops can only called on top level⬆️, not
 P59 More details of useState:
 the initial value we pass to the useState only matters at initial render.🎬
 For example, we can use a callback function to return the data we stored in localStorage in useState(callback), it will only be rendered at the initail render.
+
+P65 useRef
+it can preserve data between renders but not trigger re-render.
+while state will preserve data but trigger re-render when updates.
+normal const variable can not preserve data between renders but can trigger re-render.
+-so use ref to store DOM element or data not rendered in JSX.
