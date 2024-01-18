@@ -37,6 +37,7 @@ export default function App() {
           setIsLoading(true);
           //every time run the effect, set error to empty
           setError("");
+
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${key}&s=${query},{signal:controller.signal}`
           );
@@ -48,9 +49,13 @@ export default function App() {
           // throw an error to handle not find movies from API.
           if (data.Response === "False") throw new Error("Movie not found");
           setMovies(data.Search);
+          setError("");
           setIsLoading(false);
         } catch (err) {
-          setError(err.message);
+          // stop aborting fetching data error
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
         } finally {
           //to eliminate loading in the end
           setIsLoading(false);
