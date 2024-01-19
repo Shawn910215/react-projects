@@ -184,6 +184,7 @@ P45 What is the useEffect Dependency array?
 🔥if it has no props in the second postion, useEffect will run every time when any states or props are modified.
 🔥if it has a empty array [] as props. it will only run at the initial mount.
 
+Part III
 P57. Hooks rely on call orders. so hoops can only called on top level⬆️, not in conditional, loop, nested component.
 
 P59 More details of useState:
@@ -195,3 +196,11 @@ it can preserve data between renders but not trigger re-render.
 while state will preserve data but trigger re-render when updates.
 normal const variable can not preserve data between renders but can trigger re-render.
 -so use ref to store DOM element or data not rendered in JSX.
+
+P66 custom hooks needs to use one or more hooks.
+function name needs to start with use
+can receive and return any relevant data(usually [] or {})
+
+P71 optional--class component. people write component as classes before.
+
+P74 main difference betweeen class component and function component

@@ -28,6 +28,8 @@ export default function App() {
   function handleDeleteWatched(id) {
     setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
+
+  //useEffect to fetch data.
   useEffect(
     function () {
       const controller = new AbortController();
@@ -39,7 +41,8 @@ export default function App() {
           setError("");
 
           const res = await fetch(
-            `http://www.omdbapi.com/?apikey=${key}&s=${query},{signal:controller.signal}`
+            `http://www.omdbapi.com/?apikey=${key}&s=${query}`,
+            { signal: controller.signal }
           );
           //throw an error to handle failing to fetch data, for example disconnected problem.
           if (!res.ok)
@@ -263,6 +266,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+  // Effect to fetch data
   useEffect(
     function () {
       async function getMovieDetails() {
@@ -281,6 +285,7 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [selectedId]
   );
 
+  //Effect to modify title
   useEffect(
     function () {
       if (!title) return;
@@ -294,6 +299,24 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
     [title]
   );
 
+  //Effect to listen to Escape keydown event
+  useEffect(
+    function () {
+      function callback(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+
+      document.addEventListener("keydown", callback);
+
+      // return a clean up funtion in effect function,other wise each time render this component there will be a new eventListener add to DOM.
+      return function () {
+        document.removeEventListener("keydown", callback);
+      };
+    },
+    [onCloseMovie]
+  );
   return (
     <div className="details">
       {isLoading ? (
