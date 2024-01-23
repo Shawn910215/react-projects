@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 
 const average = (arr) =>
@@ -235,6 +235,9 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
+  //Refs can persist data between renders but not trigger re-renders.
+  const countRef = useRef(0);
+
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   const watchedUserrating = watched.find(
     (movie) => movie.imdbID === selectedId
@@ -262,10 +265,19 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
+      countRatingDecisions: countRef.current,
     };
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+  //Effect to count how many times user rate the movie.
+  useEffect(
+    function () {
+      if (userRating) countRef.current = countRef.current + 1;
+    },
+    [userRating]
+  );
+
   // Effect to fetch data
   useEffect(
     function () {
