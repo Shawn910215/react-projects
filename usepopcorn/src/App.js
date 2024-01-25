@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { useMovies } from "./useMovies";
 import { useLocalStorageState } from "./useLocalStorageState";
-
+import { useKey } from "./useKey";
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
@@ -103,7 +103,19 @@ function Logo() {
     </div>
   );
 }
+
 function Search({ query, setQuery }) {
+  const inputEl = useRef(null);
+
+  //use costom hook
+  useKey("Enter", function () {
+    //check whether the input element is focused now.
+    if (document.activeElement === inputEl.current) return;
+    //focus on the input element.
+    inputEl.current.focus();
+    setQuery("");
+  });
+
   return (
     <input
       className="search"
@@ -111,6 +123,8 @@ function Search({ query, setQuery }) {
       placeholder="Search movies..."
       value={query}
       onChange={(e) => setQuery(e.target.value)}
+      //Accociate the Ref with the input element.
+      ref={inputEl}
     />
   );
 }
@@ -265,23 +279,8 @@ function MovieDetails({ selectedId, onCloseMovie, onAddWatched, watched }) {
   );
 
   //Effect to listen to Escape keydown event
-  useEffect(
-    function () {
-      function callback(e) {
-        if (e.code === "Escape") {
-          onCloseMovie();
-        }
-      }
+  useKey("Escape", onCloseMovie);
 
-      document.addEventListener("keydown", callback);
-
-      // return a clean up funtion in effect function,other wise each time render this component there will be a new eventListener add to DOM.
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
-    },
-    [onCloseMovie]
-  );
   return (
     <div className="details">
       {isLoading ? (
