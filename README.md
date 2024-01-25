@@ -198,6 +198,7 @@ normal const variable can not preserve data between renders but can trigger re-r
 -so use ref to store DOM element or data not rendered in JSX.
 
 P66 custom hooks needs to use one or more hooks.
+when you want to create some reuseable logic that involved hook, you can create custom hooks.
 function name needs to start with use
 can receive and return any relevant data(usually [] or {})
 

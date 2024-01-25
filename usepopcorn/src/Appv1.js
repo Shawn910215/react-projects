@@ -1,22 +1,20 @@
 import { useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
-import { useMovies } from "./useMovies";
-import { useLocalStorageState } from "./useLocalStorageState";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
+//register own unique key;
 const key = "c41bbee6";
 
 export default function App() {
+  const [movies, setMovies] = useState([]);
+  const [watched, setWatched] = useState([]);
   const [query, setQuery] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-
-  //use the custom hook to save and get movies from localstorage
-  const [watched, setWatched] = useLocalStorageState([], "watched");
-
-  //use the custom hook to fetch data and return the variables.
-  const { movies, isLoading, error } = useMovies(query);
 
   function handleSelectMovie(id) {
     setSelectedId((selectedId) => (id === selectedId ? null : id));
@@ -33,6 +31,56 @@ export default function App() {
   }
 
   //useEffect to fetch data.
+  useEffect(
+    function () {
+      const controller = new AbortController();
+
+      async function fetchMovies() {
+        try {
+          setIsLoading(true);
+          //every time run the effect, set error to empty
+          setError("");
+
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${key}&s=${query}`,
+            { signal: controller.signal }
+          );
+          //throw an error to handle failing to fetch data, for example disconnected problem.
+          if (!res.ok)
+            throw new Error("Something went wrong with fetching movies");
+
+          const data = await res.json();
+          // throw an error to handle not find movies from API.
+          if (data.Response === "False") throw new Error("Movie not found");
+          setMovies(data.Search);
+          setError("");
+          setIsLoading(false);
+        } catch (err) {
+          // stop aborting fetching data error
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
+        } finally {
+          //to eliminate loading in the end
+          setIsLoading(false);
+        }
+      }
+      //if the length of input is less than 3, sho nothing
+      if (query.length < 3) {
+        setMovies([]);
+        setError("");
+        return;
+      }
+
+      fetchMovies();
+
+      //clean up function to clean up Data Fetching.each time new re-render, this function will abort the current fetch request.
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  );
 
   return (
     <>
@@ -103,6 +151,7 @@ function Logo() {
     </div>
   );
 }
+
 function Search({ query, setQuery }) {
   return (
     <input
