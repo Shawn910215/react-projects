@@ -205,3 +205,20 @@ can receive and return any relevant data(usually [] or {})
 P71 optional--class component. people write component as classes before.
 
 P74 main difference betweeen class component and function component
+
+Part 3
+useReducer hook:
+P5,when it comes to many states, we choose useReducer for complex state and related pieces of state.
+const [state,dispatch]= useReducer(reducer,initialState);
+
+-reducer is a pure function that returns next state by taking current state and action.it contains logic to update stae. Decouples state logic from component.
+-action:ojbect that describes how to update state
+-dispatch:function to trigger state updates, by sending actions from event handlers to the reducer.
+
+dispatch requests the update,
+reducer makes the update,
+state needs to be updtaed
+action shows how to update the state.
+
+add "server": "json-server --watch data/questions.json --port 8000" in package.json.
+and use "npm run server" to hold this api.
