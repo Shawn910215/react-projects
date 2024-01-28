@@ -222,3 +222,4 @@ action shows how to update the state.
 
 add "server": "json-server --watch data/questions.json --port 8000" in package.json.
 and use "npm run server" to hold this api.
+-"rfc" can be used to initial the component
