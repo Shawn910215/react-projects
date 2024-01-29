@@ -86,8 +86,14 @@ export default function App() {
     highScore,
     secondsRemaining,
   } = state;
+
+  //define a derived variable to represent number of questions
   const numQuestion = questions.length;
+
+  // use reduce method to return the sum of points of each question
   const possibleMaxPoints = questions.reduce((pre, cur) => pre + cur.points, 0);
+
+  //fetch data at the beginning of app by using useEffect, and use dispatch to trigger dataReceived action.
   useEffect(function () {
     fetch("http://localhost:8000/questions")
       .then((res) => res.json())
