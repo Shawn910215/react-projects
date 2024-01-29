@@ -223,3 +223,7 @@ action shows how to update the state.
 add "server": "json-server --watch data/questions.json --port 8000" in package.json.
 and use "npm run server" to hold this api.
 -"rfc" can be used to initial the component
+
+P20 create a new APP worldWise by using react router and vite.
+-each time create a vite, should config the eslink by using following command.
+-👩🏻‍💻npm install eslint vite-plugin-eslint eslint-config-react-app --save-dev
