@@ -227,3 +227,11 @@ and use "npm run server" to hold this api.
 P20 create a new APP worldWise by using react router and vite.
 -each time create a vite, should config the eslink by using following command.
 -👩🏻‍💻npm install eslint vite-plugin-eslint eslint-config-react-app --save-dev
+
+P21 With routing, we match different URLs to different UI views (React components): routes
+-which allows users to navigate between different applications screens, using the browser URL.
+-Keeps the UI in sync with the current browser URL.
+-Allow us to build SPA (Single Page Application)
+--SPA is executed entirly on the client(browsers), so never reloade, JavaScript is used to update the page(DOM)
+--Feels like a native app
+--additional data might be loaded from a web API
