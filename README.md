@@ -235,3 +235,10 @@ P21 With routing, we match different URLs to different UI views (React component
 --SPA is executed entirly on the client(browsers), so never reloade, JavaScript is used to update the page(DOM)
 --Feels like a native app
 --additional data might be loaded from a web API
+
+P24 Styling option
+CSS Modules scope is component,
+tailwindcss is getting popular.
+use UI libraries like MUI,Chakra UI, Mantine, etc. pre build css
+
+P25 We Choose to use CSS modules.
