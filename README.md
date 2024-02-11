@@ -240,5 +240,7 @@ P24 Styling option
 CSS Modules scope is component,
 tailwindcss is getting popular.
 use UI libraries like MUI,Chakra UI, Mantine, etc. pre build css
+put global class name in index.css that every component can use.
 
 P25 We Choose to use CSS modules.
+-collapsing margin: the space between two adjacent boxes only apply the largest margin of them. Not add them.
